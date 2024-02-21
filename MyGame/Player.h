@@ -22,6 +22,8 @@ public:
     Player(std::string new_name, int new_health);
     Player(std::string new_name, int new_health, int new_armor);
     Player(std::string new_name, int new_health,int new_armor, int new_xp ); // Overloaded constructor
+    Player& operator=(const Player& other);
+    Player operator -(); // Оператор -() потрібний в ігрі для того щоб проходив кріт урон по броні.
     ~Player(); // destructor
 
 

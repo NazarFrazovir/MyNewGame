@@ -18,6 +18,16 @@ Player::Player(std::string new_name, int new_health, int new_armor)
 
 Player::Player(std::string new_name, int new_health, int new_armor, int new_xp)
         :name{new_name},armor{new_armor},xp{new_xp}{health=new_health;}
+Player& Player::operator=(const Player &other){
+        if (this != &other) {
+            this->armor = other.armor;         // Assigment operator - він потрібний для того щоб спрацював оператор -()
+        }
+        return *this;
+    }
+Player Player::operator-() {
+    armor = -armor;              // Add unary operator - Для критичного удара по броні.
+    return *this;
+}
 
 
 Player::~Player() {}
