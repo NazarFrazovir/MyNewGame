@@ -28,6 +28,7 @@ void Enemy::Enemy_SetName(){
     getline(std::cin,enemy_new_name);
     this->enemy_name=enemy_new_name;
 }
+
 void Enemy::Enemy_Weapon(){
 
     std::string enemy_weapon [3] = {"Sword", "Bow", "Spear"};
@@ -102,8 +103,27 @@ void Enemy::Enemy_Weapon(){
         }
     }
 }
+
 void Enemy::Enemy_Stat() const{
     std::cout<<"Enemy name: "<<Enemy::enemy_name<<std::endl;
     std::cout<<"Health: "<<Enemy::enemy_health<<std::endl;
     std::cout<<"Armor: "<<Enemy::enemy_armor<<std::endl;
+    std::cout<<std::endl;
+}
+
+std::ostream& operator<<(std::ostream& os, const Enemy& enemy){
+    os << "Enemy name: "<<enemy.enemy_name<<std::endl;
+    os << "Health: "<<enemy.enemy_health<<std::endl;
+    os << "Armor: "<<enemy.enemy_armor<<std::endl;
+    return os;
+}
+
+std::istream& operator>>(std::istream& is, Enemy& enemy){
+    std::cout<<"Enter enemy name: "<<std::endl;
+    is >>enemy.enemy_name;
+    std::cout<<"Enter enemy health: ";
+    is >>enemy.enemy_health;
+    std::cout<<"Enter enemy armor: ";
+    is >>enemy.enemy_armor;
+    return is;
 }

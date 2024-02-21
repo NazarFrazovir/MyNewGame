@@ -32,5 +32,9 @@ public:
     void Enemy_Weapon();
 
     void Enemy_Stat() const;
+
+    friend std::ostream& operator<<(std::ostream& os, const Enemy& enemy);
+
+    friend  std::istream& operator>>(std::istream& is, Enemy& enemy);
 };
 #endif //MYGAME_ENEMY_H
