@@ -15,7 +15,6 @@ private:
 
 public:
     Game();
-
     static void GameStart();
 };
 #endif //MYGAME_GAME_H

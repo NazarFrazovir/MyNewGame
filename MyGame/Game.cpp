@@ -8,4 +8,12 @@
 #include "Game.h"
 #include <string>
 
-void Game::GameStart() {}
+Game::Game() {};
+
+void Game::GameStart() {
+    if (!Player::HealtBool()){
+        std::cout<<"GAME OVER"<<std::endl;
+    }else{
+        std::cout<<"GAME CONTINUE"<<std::endl;
+    }
+}

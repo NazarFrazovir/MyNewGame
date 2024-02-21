@@ -4,7 +4,7 @@
 #include <iostream>
 #include "Player.h"
 
-
+int Player::health = 100; // initialization static
 Player::Player()
 //        :name{"Unknown"}, health{0}, armor{0}, xp{0}
         : Player{"Unknown",0,0,0}{}
@@ -18,12 +18,14 @@ Player::Player(std::string new_name, int new_health, int new_armor)
 
 Player::Player(std::string new_name, int new_health, int new_armor, int new_xp)
         :name{new_name},armor{new_armor},xp{new_xp}{health=new_health;}
+
 Player& Player::operator=(const Player &other){
         if (this != &other) {
             this->armor = other.armor;         // Assigment operator - він потрібний для того щоб спрацював оператор -()
         }
         return *this;
     }
+
 Player Player::operator-() {
     armor = -armor;              // Add unary operator - Для критичного удара по броні.
     return *this;
@@ -117,10 +119,10 @@ void Player::Weapon(){
 }
 
 void Player::SetHealth(int new_health) {
-    this -> health = new_health;                    // this Вказує на поточний обʼєкт класу Player
+    health = new_health;                    // this Вказує на поточний обʼєкт класу Player
 }
 bool Player::HealtBool() {
-    if( health <= 0){
+    if(health <= 0){
         return false;
     }else{
         return true;

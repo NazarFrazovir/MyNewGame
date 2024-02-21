@@ -12,7 +12,7 @@ class Player {
 private:
     std::string name;
     int xp;
-    int health;
+    static int health;
     int armor;
     std::string weapon[3] = {"Sword", "Bow", "Spear"};
     std::string player_weapon_class;
@@ -33,7 +33,7 @@ public:
 
     void SetHealth(int new_health);
 
-    bool HealtBool();
+    static bool HealtBool();
 
     void Weapon();
 
