@@ -1,0 +1,17 @@
+Title: "Battle of the Universe"
+
+Description:
+"Battle of the Universe" is an exciting fighting game where players can create their own characters and face various enemies in unpredictable battles. The game is characterized by a high level of character customization and a unique rarity system for weapons, adding a strategic aspect to battles.
+
+Key Features:
+
+Character Creation: Players have the ability to create their own unique characters, each with their own health level, armor level, and chosen weapon. They can choose between a Bow, Sword, or Spear, each with its own characteristics that affect gameplay.
+
+Weapon Characteristics: Players can set the level of mastery and unique characteristics for each weapon, affecting its effectiveness in combat.
+
+Rarity System: Weapons in the game have their own rarity, determined by a unique formula. The higher the rarity level, the more powerful the weapon and the more advantages it provides to the player during battle.
+
+Enemy Leveling: Enemies appear randomly on the map, and their level increases gradually with each successive battle. This creates a challenge for players and adds a trial element to the game.
+
+Overall Conclusion:
+"Battle of the Universe" is an engaging fighting game that allows players to customize their characters, participate in exciting battles, and explore unique weapon characteristics. With the increasing level of enemies, players are constantly challenged, making the game captivating and interesting for a long time.
