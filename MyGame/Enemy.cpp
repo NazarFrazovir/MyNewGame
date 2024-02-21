@@ -5,6 +5,17 @@
 #include "Enemy.h"
 #include <string>
 
+Enemy::Enemy()
+        : Enemy{"Unknown",0,0}{}
+Enemy::Enemy(std::string enemy_new_name)
+        :Enemy(enemy_new_name,0,0){}
+Enemy::Enemy(std::string enemy_new_name, int enemt_new_health)
+        :Enemy{enemy_new_name,enemt_new_health,0}{}
+Enemy::Enemy(std::string enemy_new_name, int enemy_new_health, int enemy_new_armor)
+        :enemy_name{enemy_new_name}, enemy_health{enemy_new_health}, enemy_armor{enemy_new_armor}{}
+
+
+
 void Enemy::Enemy_SetName(){
     std::string enemy_new_name;
     std::cout<<"Enter enemy name: "<<std::endl;
