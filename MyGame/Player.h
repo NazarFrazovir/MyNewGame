@@ -35,6 +35,8 @@ public:
 
     bool HealtBool();
 
+    void Weapon();
+
     void Stat() const;
 };
 #endif //MYGAME_PLAYER_H
