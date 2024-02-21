@@ -14,6 +14,12 @@ Enemy::Enemy(std::string enemy_new_name, int enemt_new_health)
 Enemy::Enemy(std::string enemy_new_name, int enemy_new_health, int enemy_new_armor)
         :enemy_name{enemy_new_name}, enemy_health{enemy_new_health}, enemy_armor{enemy_new_armor}{}
 
+Enemy::Enemy(Enemy &&other)
+:enemy_name{other.enemy_name},enemy_health{other.enemy_health},enemy_armor{other.enemy_armor}{
+    other.enemy_name = nullptr ;                // move constructor - Крадіжка данних та занулення їх, створює нового
+    other.enemy_armor = NULL ;                  // На основі минулого
+    other.enemy_health = NULL;
+}
 
 
 void Enemy::Enemy_SetName(){

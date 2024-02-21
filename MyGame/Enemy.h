@@ -23,6 +23,8 @@ public:
 
     Enemy(std::string enemy_new_name, int enemy_new_health, int enemy_new_armor);
 
+    Enemy(Enemy&& other); // - move constructor
+
     ~Enemy();
 
     void Enemy_SetName();
