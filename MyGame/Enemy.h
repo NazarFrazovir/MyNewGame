@@ -23,11 +23,11 @@ public:
 
     Enemy(std::string enemy_new_name, int enemy_new_health, int enemy_new_armor);
 
-    Enemy(Enemy&& other); // - move constructor
+    Enemy(const Enemy& other); // - copy constructor
 
     ~Enemy();
 
-    void Enemy_SetName();
+    void Enemy_SetName(std::string enemy_new_name);
 
     void Enemy_Weapon();
 
