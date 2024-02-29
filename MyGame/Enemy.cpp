@@ -15,7 +15,7 @@ Enemy::Enemy(std::string enemy_new_name, int enemy_new_health, int enemy_new_arm
         :enemy_name{enemy_new_name}, enemy_health{enemy_new_health}, enemy_armor{enemy_new_armor}{}
 
 Enemy::Enemy(Enemy&& other) noexcept
-:enemy_name(other.enemy_name),enemy_health(other.enemy_health),enemy_armor(other.enemy_armor){
+:enemy_name(std::move(other.enemy_name)),enemy_health(std::move(other.enemy_health)),enemy_armor(std::move(other.enemy_armor)){
     other.enemy_name= nullptr;
     other.enemy_health = NULL;
     other.enemy_armor = NULL;           // Крадіжка даних та занулення їх
