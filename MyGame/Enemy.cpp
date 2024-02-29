@@ -14,17 +14,22 @@ Enemy::Enemy(std::string enemy_new_name, int enemt_new_health)
 Enemy::Enemy(std::string enemy_new_name, int enemy_new_health, int enemy_new_armor)
         :enemy_name{enemy_new_name}, enemy_health{enemy_new_health}, enemy_armor{enemy_new_armor}{}
 
-Enemy::Enemy(const Enemy& other)
-:enemy_name(other.enemy_name),enemy_armor(other.enemy_armor),enemy_health(other.enemy_health){
-}           // copy constructor
+Enemy::Enemy(Enemy&& other) noexcept
+:enemy_name(other.enemy_name),enemy_health(other.enemy_health),enemy_armor(other.enemy_armor){
+    other.enemy_name= nullptr;
+    other.enemy_health = NULL;
+    other.enemy_armor = NULL;           // Крадіжка даних та занулення їх
+}  // move constructor
+//Enemy::Enemy(const Enemy& other)
+//:enemy_name(other.enemy_name),enemy_health(other.enemy_health),enemy_armor(other.enemy_armor){}       copy constructro for example
 Enemy::~Enemy() {}
 
 
-void Enemy::Enemy_SetName(std::string enemy_new_name){
+void Enemy::enemy_SetName(std::string enemy_new_name){
     this->enemy_name=enemy_new_name;
 }
 
-void Enemy::Enemy_Weapon(){
+void Enemy::enemy_Weapon(){
 
     std::string enemy_weapon [3] = {"Sword", "Bow", "Spear"};
     srand(time(NULL));
@@ -99,7 +104,7 @@ void Enemy::Enemy_Weapon(){
     }
 }
 
-void Enemy::Enemy_Stat() const{
+void Enemy::enemy_Stat() const{
     std::cout<<"Enemy name: "<<Enemy::enemy_name<<std::endl;
     std::cout<<"Health: "<<Enemy::enemy_health<<std::endl;
     std::cout<<"Armor: "<<Enemy::enemy_armor<<std::endl;

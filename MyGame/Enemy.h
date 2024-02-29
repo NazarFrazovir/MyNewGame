@@ -23,15 +23,17 @@ public:
 
     Enemy(std::string enemy_new_name, int enemy_new_health, int enemy_new_armor);
 
-    Enemy(const Enemy& other); // - copy constructor
+    Enemy(Enemy&& other) noexcept; // move constructor
+
+//    Enemy(const Enemy& ohter);        copy constructor for example
 
     ~Enemy();
 
-    void Enemy_SetName(std::string enemy_new_name);
+    void enemy_SetName(std::string enemy_new_name);
 
-    void Enemy_Weapon();
+    void enemy_Weapon();
 
-    void Enemy_Stat() const;
+    void enemy_Stat() const;
 
     friend std::ostream& operator<<(std::ostream& os, const Enemy& enemy);
 
