@@ -38,9 +38,9 @@ public:
 
     bool healtBool();
 
-    void display() const;
+    virtual void display() const;           // virtual methods
 
-    void displayAll(const Player& other);       // Static method binding
+     void displayInfoOnUI(const Player& player);       // Static method binding
 
 private:
     std::string weapon[3] = {"Sword", "Bow", "Spear"};

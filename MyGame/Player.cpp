@@ -144,11 +144,17 @@ void Player::setArmor(int new_armor) {
 }
 
 void Player::display() const{
-    std::cout<<"Name: "<<Player::name<<std::endl;
-    std::cout<<"Health: "<<Player::health<<std::endl;
-    std::cout<<"Armor: "<<Player::armor<<std::endl;
+    std::cout<<"       Player Information: "<<std::endl;
+    std::cout<<"Name: "<<name<<std::endl;
+    std::cout<<"Health: "<<health<<std::endl;
+    std::cout<<"Armor: "<<armor<<std::endl;
     std::cout<<std::endl;
 }
 
-void Player::displayAll(const Player &other) {other.display();} // Static binding method
+
+void Player::displayInfoOnUI(const Player &player) {
+    std::cout<<"---------------------------------------------"<<std::endl;
+    player.display();
+    std::cout<<"---------------------------------------------"<<std::endl;
+} // Static method binding
 

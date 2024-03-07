@@ -33,7 +33,10 @@ public:
 
     void enemy_Weapon();
 
-    void enemy_Stat() const;
+
+    virtual void enemyDisplay()const;
+
+    void enemyDisplayOnUI(const Enemy& enemy);
 
     friend std::ostream& operator<<(std::ostream& os, const Enemy& enemy);
 

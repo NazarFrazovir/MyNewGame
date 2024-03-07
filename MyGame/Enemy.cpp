@@ -7,15 +7,21 @@
 
 Enemy::Enemy()
         : Enemy{"Unknown",0,0}{}
+
 Enemy::Enemy(std::string enemy_new_name)
         :Enemy(enemy_new_name,0,0){}
-Enemy::Enemy(std::string enemy_new_name, int enemt_new_health)
-        :Enemy{enemy_new_name,enemt_new_health,0}{}
+
+Enemy::Enemy(std::string enemy_new_name, int enemy_new_health)
+        :Enemy{enemy_new_name,enemy_new_health > 0 ? enemy_new_health : 0,0}{}
+
 Enemy::Enemy(std::string enemy_new_name, int enemy_new_health, int enemy_new_armor)
-        :enemy_name{enemy_new_name}, enemy_health{enemy_new_health}, enemy_armor{enemy_new_armor}{}
+        :enemy_name{enemy_new_name}, enemy_health{enemy_new_health > 0 ? enemy_new_health : 0}
+        , enemy_armor{enemy_new_armor}{}
 
 Enemy::Enemy(Enemy&& other) noexcept
-:enemy_name(std::move(other.enemy_name)),enemy_health(std::move(other.enemy_health)),enemy_armor(std::move(other.enemy_armor)){
+:enemy_name(std::move(other.enemy_name))
+,enemy_health(std::move(other.enemy_health))
+,enemy_armor(std::move(other.enemy_armor)){
     other.enemy_name= nullptr;
     other.enemy_health = NULL;
     other.enemy_armor = NULL;           // Крадіжка даних та занулення їх
@@ -104,12 +110,6 @@ void Enemy::enemy_Weapon(){
     }
 }
 
-void Enemy::enemy_Stat() const{
-    std::cout<<"Enemy name: "<<Enemy::enemy_name<<std::endl;
-    std::cout<<"Health: "<<Enemy::enemy_health<<std::endl;
-    std::cout<<"Armor: "<<Enemy::enemy_armor<<std::endl;
-    std::cout<<std::endl;
-}
 
 std::ostream& operator<<(std::ostream& os, const Enemy& enemy){
     os << "Enemy name: "<<enemy.enemy_name<<std::endl;
@@ -126,4 +126,17 @@ std::istream& operator>>(std::istream& is, Enemy& enemy){
     std::cout<<"Enter enemy armor: ";
     is >>enemy.enemy_armor;
     return is;
+}
+
+void Enemy::enemyDisplay() const {
+    std::cout<<"       Enemy Information: "<<std::endl;
+    std::cout<<"Name enemy: "<<enemy_name<<std::endl;
+    std::cout<<"Health: "<<enemy_health<<std::endl;
+    std::cout<<"Armor: "<<enemy_armor<<std::endl;
+    std::cout<<std::endl;
+}
+void Enemy::enemyDisplayOnUI(const Enemy &enemy) {
+    std::cout<<"---------------------------------------------"<<std::endl;
+    enemy.enemyDisplay();
+    std::cout<<"---------------------------------------------"<<std::endl;
 }
