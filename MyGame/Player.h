@@ -9,13 +9,12 @@
 
 
 class Player {
-private:
+protected:
     std::string name;
     int xp;
-    static int health;
+    int health;
     int armor;
-    std::string weapon[3] = {"Sword", "Bow", "Spear"};
-    std::string player_weapon_class;
+
 public:
 
     Player(); // default constructor
@@ -27,16 +26,24 @@ public:
     ~Player(); // destructor
 
 
-    void SetName(std::string new_name);
+    void setName(std::string new_name);
 
-    void SetArmor(int new_armor);
+    void setArmor(int new_armor);
 
-    void SetHealth(int new_health);
+    void setHealth(int new_health);
 
-    static bool HealtBool();
+    void attack();
 
-    void Weapon();
+    void weapons();
 
-    void Stat() const;
+    bool healtBool();
+
+    void display() const;
+
+    void displayAll(const Player& other);       // Static method binding
+
+private:
+    std::string weapon[3] = {"Sword", "Bow", "Spear"};
+    std::string player_weapon_class;
 };
 #endif //MYGAME_PLAYER_H
