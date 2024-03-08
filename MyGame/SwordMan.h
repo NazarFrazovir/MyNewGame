@@ -8,6 +8,7 @@
 #include "Player.h"
 #include "Spell.h"
 
+
 class SwordMan:public Player{
 private:
     std::string sword_Type[4]={"Basic", "Master", "Grandmaster", "Gven'nel"};
@@ -19,15 +20,14 @@ private:
 public:
     SwordMan();
     SwordMan(int new_sword_damage,int new_precision,int new_mobility);
-
     SwordMan& operator=(const SwordMan& other);
-
-    ~SwordMan();
+    virtual ~SwordMan();
 
     void useSpell(const Spell& spell);
-    void setSwordDamage(int new_sworddamage);
+    void setSwordDamage(int new_sword_damage);
     void setPrecision(int new_precision);
     void setMobility(int new_mobility);
+    void display() const override;               //final
 
 
 };

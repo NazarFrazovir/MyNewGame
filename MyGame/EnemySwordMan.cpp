@@ -26,6 +26,7 @@ enemy_sword_damage(other.enemy_sword_damage),enemy_mobility(other.enemy_mobility
 //EnemySwordMan::EnemySwordMan(const EnemySwordMan &other)
 //: Enemy("Unknown",0,0),enemy_sword_damage(other.enemy_sword_damage),          copy constructor for example
 //enemy_precision(other.enemy_precision),enemy_mobility(other.enemy_mobility){}
+
 EnemySwordMan::~EnemySwordMan() {}
 
 void EnemySwordMan::enemy_setSwordDamage(int new_enemy_sword_damage) {
@@ -36,6 +37,12 @@ void EnemySwordMan::enemy_setMobility(int new_enemy_mobility) {
 }
 void EnemySwordMan::enemy_setPrecision(int new_enemy_precision) {
     this->enemy_precision = new_enemy_precision;
+}
+ void EnemySwordMan::enemyDisplay() const {
+    Enemy::enemyDisplay();
+    std::cout<<"Sword damage: "<<enemy_sword_damage<<std::endl;
+    std::cout<<"Mobility: "<<enemy_mobility<<std::endl;
+    std::cout<<"Precision: "<<enemy_precision<<std::endl;
 }
 
 
