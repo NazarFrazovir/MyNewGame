@@ -23,7 +23,7 @@ public:
     Player(std::string new_name, int new_health,int new_armor, int new_xp ); // Overloaded constructor
     Player& operator=(const Player& other);
     Player operator -(); // Оператор -() потрібний в ігрі для того щоб проходив кріт урон по броні.
-    ~Player(); // destructor
+    virtual ~Player(); // destructor
 
 
     void setName(std::string new_name);
@@ -40,7 +40,7 @@ public:
 
     virtual void display() const;           // virtual methods
 
-     void displayInfoOnUI(const Player& player);       // Static method binding
+     void displayInfoOnUI();       // Static method binding
 
 private:
     std::string weapon[3] = {"Sword", "Bow", "Spear"};

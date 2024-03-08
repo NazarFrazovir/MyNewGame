@@ -27,7 +27,7 @@ public:
 
 //    Enemy(const Enemy& ohter);        copy constructor for example
 
-    ~Enemy();
+    virtual ~Enemy();
 
     void enemy_SetName(std::string enemy_new_name);
 
