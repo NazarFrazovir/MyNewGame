@@ -27,7 +27,7 @@ public:
     void setSwordDamage(int new_sword_damage);
     void setPrecision(int new_precision);
     void setMobility(int new_mobility);
-    void display() const override;               //final
+    void display() const override final;              //final
 
 
 };

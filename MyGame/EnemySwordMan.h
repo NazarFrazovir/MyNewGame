@@ -7,7 +7,7 @@
 #include "Enemy.h"
 #include <iostream>
 
-class EnemySwordMan :public Enemy {
+class EnemySwordMan final :public Enemy {
 private:
     int enemy_sword_damage;
     int enemy_precision;
@@ -22,7 +22,7 @@ public:
     void enemy_setSwordDamage(int new_enemy_sword_damage);
     void enemy_setPrecision(int new_enemy_precision);
     void enemy_setMobility(int new_enemy_mobility);
-    void enemyDisplay() const override;
+    void enemyDisplay() const override final;
 };
 
 #endif //MYGAME_ENEMYSWORDMAN_H
