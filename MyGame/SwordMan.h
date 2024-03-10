@@ -21,14 +21,22 @@ public:
     SwordMan();
     SwordMan(int new_sword_damage,int new_precision,int new_mobility);
     SwordMan& operator=(const SwordMan& other);
-    virtual ~SwordMan();
+    virtual ~SwordMan();            // I set virtual destructor, because if(base class have virtual destructor,
+    //   and subsidiaries must have virtual destructor)
 
     void useSpell(const Spell& spell);
     void setSwordDamage(int new_sword_damage);
     void setPrecision(int new_precision);
     void setMobility(int new_mobility);
-    void display() const override final;              //final
-
+    void display() const override final;              //final (method) cannot be override.
+    void makeSound() override;              // pure virtual function
+    virtual void print(std::ostream& os) const override{
+        os << "I'm "<<name<< ", What's going on? "<< std::endl;
+        os << std::endl;
+    }
+    void representation(SwordMan& obj){
+        std::cout<<obj;
+    }
 
 };
 

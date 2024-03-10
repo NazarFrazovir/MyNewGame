@@ -9,6 +9,7 @@
 
 
 class Player {
+    friend std::ostream &operator<<(std::ostream &os, const Player &obj);           // Interface
 protected:
     std::string name;
     int xp;
@@ -22,7 +23,7 @@ public:
     Player(std::string new_name, int new_health, int new_armor);
     Player(std::string new_name, int new_health,int new_armor, int new_xp ); // Overloaded constructor
     Player& operator=(const Player& other);
-    Player operator -(); // Оператор -() потрібний в ігрі для того щоб проходив кріт урон по броні.
+    Player& operator -(); // Оператор -() потрібний в ігрі для того щоб проходив кріт урон по броні.
     virtual ~Player(); // destructor
 
 
@@ -40,7 +41,17 @@ public:
 
     virtual void display() const;           // virtual methods
 
-     void displayInfoOnUI();       // Static method binding
+    virtual void showStatHealthAndArmor();
+
+    virtual void makeSound()  = 0;                 //pure virtual function
+//
+    virtual void print(std::ostream& os)const  = 0;
+
+    void representation(Player& obj){
+        std::cout<<obj;
+    }
+
+
 
 private:
     std::string weapon[3] = {"Sword", "Bow", "Spear"};

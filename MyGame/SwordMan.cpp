@@ -28,19 +28,28 @@ SwordMan &SwordMan::operator=(const SwordMan &other) {
     return *this;
 }
 
-
-SwordMan::~SwordMan() {}
+SwordMan::~SwordMan() noexcept{}
 
 void SwordMan::useSpell(const Spell& spell) {
     sword_damage += spell.getDamageBonus();
 }
+
 void SwordMan::setSwordDamage(int new_sword_damage) {sword_damage=new_sword_damage;}
+
 void SwordMan::setMobility(int new_mobility) {mobility=new_mobility;}
+
 void SwordMan::setPrecision(int new_precision) {precision=new_precision;}
-void SwordMan::display() const{
+
+void SwordMan::display() const {
     Player::display();
     std::cout<<"Sword damage : "<<sword_damage<<std::endl;
     std::cout<<"Precision: "<<precision<<std::endl;
     std::cout<<"Mobility: "<<mobility<<std::endl;
+    std::cout<<std::endl;
+}
+
+void SwordMan::makeSound()  {
+    std::cout<<"I'm "<<name<<", and I'm the best SwordsMan in the world. "<<std::endl;
+    std::cout<<std::endl;
 }
 

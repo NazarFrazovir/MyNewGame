@@ -30,7 +30,7 @@ Player& Player::operator=(const Player &other){
         return *this;
     }
 
-Player Player::operator-() {
+Player& Player::operator-() {
     armor = -armor;              // Add unary operator - Для критичного удара по броні.
     return *this;
 }
@@ -135,6 +135,11 @@ bool Player::healtBool() {
     }
 }
 
+std::ostream &operator<<(std::ostream &os, const Player& obj){
+    obj.print(os);
+    return os;
+}
+
 void Player::setName(std::string new_name){
     this->name = new_name;
 }
@@ -143,7 +148,7 @@ void Player::setArmor(int new_armor) {
     this->armor = new_armor;
 }
 
-void Player::display() const{
+void Player::display() const {
     std::cout<<"       Player Information: "<<std::endl;
     std::cout<<"Name: "<<name<<std::endl;
     std::cout<<"Health: "<<health<<std::endl;
@@ -151,10 +156,13 @@ void Player::display() const{
     std::cout<<std::endl;
 }
 
+void Player::showStatHealthAndArmor() {
+    std::cout<<"You're health: ["<<health<<"] "<<std::endl;
+    std::cout<<"You're armor: ["<<armor<<"] "<<std::endl;
+    std::cout<<std::endl;
+}
 
-void Player::displayInfoOnUI(const Player &player) {
-    std::cout<<"---------------------------------------------"<<std::endl;
-    player.display();
-    std::cout<<"---------------------------------------------"<<std::endl;
-} // Static method binding
+
+
+
 
