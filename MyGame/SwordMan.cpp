@@ -6,7 +6,6 @@
 #include "SwordMan.h"
 #include "Spell.h"
 
-
 SwordMan::SwordMan() :Player(){
     sword_Type[0] = "Basic";
     sword_damage= 10 ;
@@ -14,7 +13,7 @@ SwordMan::SwordMan() :Player(){
     mobility = 5;
 }
 SwordMan::SwordMan(int new_sword_damage, int new_precision,int new_mobility)
-: Player("Unknown",health > 0 ? health : 0,0,0),
+: Player(name,health > 0 ? health : 0,armor,xp),
 sword_damage(new_sword_damage > 0 ? new_sword_damage : 0),
 precision(new_precision),mobility(new_mobility){}
 
@@ -34,11 +33,52 @@ void SwordMan::useSpell(const Spell& spell) {
     sword_damage += spell.getDamageBonus();
 }
 
-void SwordMan::setSwordDamage(int new_sword_damage) {sword_damage=new_sword_damage;}
+void SwordMan::setSwordDamage() {
+    int new_sword_damage;
+    std::cout<<"Enter Sword damage: "<<std::endl;
+    std::cin>>new_sword_damage;
+    try {
+        if (new_sword_damage < 0 || new_sword_damage > 100) {
+            throw 0;
+            sword_damage = new_sword_damage;                     // Exception
+        }
+    }catch (int &ex){
+        std::cerr<<"Sword damage can't be < 0 and can't be > 100 "<<std::endl;
+        exit(1);
+    }
+}
 
-void SwordMan::setMobility(int new_mobility) {mobility=new_mobility;}
+void SwordMan::setMobility() {
+    int new_mobility;
+    std::cout<<"Enter Mobility: "<<std::endl;
+    std::cin>>new_mobility;
+    try {
+        if (new_mobility < 0 || new_mobility > 100) {
+            throw 0;
+            mobility = new_mobility;                     // Exception
+        }
+    }catch (int &ex){
+        std::cerr<<"Mobility can't be < 0 and can't be > 100 "<<std::endl;
+        exit(1);
+    }
 
-void SwordMan::setPrecision(int new_precision) {precision=new_precision;}
+}
+
+void SwordMan::setPrecision() {
+    int new_precision;
+    std::cout<<"Enter Precision: "<<std::endl;
+    std::cin>>new_precision;
+    try {
+        if (new_precision < 0 || new_precision > 100) {
+            throw 0;
+            precision = new_precision;                     // Exception
+        }
+    }catch (int &ex){
+        std::cerr<<"Precision can't be < 0 and can't be > 100 "<<std::endl;
+        exit(1);
+    }
+
+}
 
 void SwordMan::display() const {
     Player::display();
@@ -53,3 +93,17 @@ void SwordMan::makeSound()  {
     std::cout<<std::endl;
 }
 
+void SwordMan::print(std::ostream &os) const {
+    os<<"Interface for Sword man: "<<std::endl;
+    os<< "My Sword damage: "<<sword_damage<<std::endl<<"Precision: "<<precision<<std::endl
+       <<"Mobility: "<<mobility<<std::endl;
+    os<< std::endl;
+}
+
+void SwordMan::setStat() {
+    std::cout<<" Enter SwordMan characteristic: "<<std::endl;
+    Player::setStat();
+    setSwordDamage();
+    setMobility();
+    setPrecision();
+}

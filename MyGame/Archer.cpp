@@ -42,11 +42,48 @@ Archer::~Archer() noexcept {}
 
 void Archer::useSpell(const Spell &spell) {damageArrows += spell.getDamageBonus();}
 
-void Archer::setDamageArrows(int newDamageArrows) {damageArrows = newDamageArrows;}
+void Archer::setDamageArrows() {
+    int newDamageArrows;
+    std::cout << "Enter Damage of arrows: " << std::endl;
+    std::cin >> newDamageArrows;
+    try {
+        if (newDamageArrows < 0 || newDamageArrows > 100)
+            throw 0;
+            damageArrows = newDamageArrows;                     // Exception
+    }catch (int &ex){
+        std::cerr<<"Damage can't be < 0 and can't be > 100 "<<std::endl;
+        exit(1);
+    }
+}
 
-void Archer::setFlightRange(int newFlightRange) {flightRange = newFlightRange;}
+void Archer::setFlightRange() {
+    int newFlightRange;
+    std::cout<<"Enter Flight Range: "<<std::endl;
+    std::cin>>newFlightRange;
+    try {
+        if (newFlightRange < 0 || newFlightRange > 100)
+            throw 0;
+            flightRange = newFlightRange;                     // Exception
+    }catch (int &ex){
+        std::cerr<<"Flight range can't be < 0 and can't be > 100 "<<std::endl;
+        exit(1);
+    }
+}
 
-void Archer::setNumberArrows(int newNumbersArrows) {numberArrows = newNumbersArrows;}
+void Archer::setNumberArrows() {
+    int newNumbersArrows;
+    std::cout<<"Enter Number of arrwos (1-30): "<<std::endl;
+    std::cin>>newNumbersArrows;
+    try {
+        if (newNumbersArrows < 0 || newNumbersArrows > 30) {
+            throw 0;
+            numberArrows = newNumbersArrows;                     // Exception
+        }
+    }catch (int &ex){
+        std::cerr<<"Numbers of arrows can't be < 0 and can't be > 30 "<<std::endl;
+        exit(1);
+    }
+}
 
 void Archer::display() const {
     Player::display();
@@ -60,3 +97,18 @@ void Archer::makeSound()  {
     std::cout<<"I'm "<<name<< ", and I'm the best Archer in the world. "<<std::endl;
     std::cout<<std::endl;
 }
+
+void Archer::print(std::ostream &os) const {
+    std::cout<<"Interface for Archer: "<<std::endl;
+    std::cout << "My number arrows: "<<numberArrows<<std::endl<<"Flight range: "<<flightRange<<std::endl
+    <<"Damage arrows: "<<damageArrows<<std::endl;
+    std::cout << std::endl;
+}
+void Archer::setStat(){
+    std::cout<<" Enter SwordMan characteristic: "<<std::endl;
+    Player::setStat();
+    setDamageArrows();
+    setNumberArrows();
+    setFlightRange();
+}
+

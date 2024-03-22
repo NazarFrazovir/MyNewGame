@@ -4,8 +4,6 @@
 #include <iostream>
 #include "Player.h"
 
-
-
 Player::Player()
 //        :name{"Unknown"}, health{0}, armor{0}, xp{0}
         : Player{"Unknown",0,0,0}{}
@@ -39,14 +37,25 @@ Player& Player::operator-() {
 Player::~Player() {}
 
 
-void Player::setHealth(int new_health) {
-    health = new_health;                    // this Вказує на поточний обʼєкт класу Player
+void Player::setHealth() {
+    int new_health;
+    std::cout<<"Enter Health: "<<std::endl;
+    std::cin>>new_health;
+    try {
+        if (new_health < 0 || new_health > 100) {
+            throw 0;
+            health = new_health;                     // Exception
+        }
+    }catch (int &ex){
+        std::cerr<<"Health can't be < 0 and can't be > 100 "<<std::endl;
+        exit(1);
+    }
 }
 
 void Player::weapons(){
     std::string weapon_class;
     double weapon_class_point;
-    double damage;
+    int damage;
     int breaking_armor;
     std::string new_weapon;
     std::cout<<"Enter you're weapon: (Sword) (Bow) (Spear) "<<std::endl;
@@ -59,7 +68,7 @@ void Player::weapons(){
         std::cin>>damage;
         std::cout<<"Enter breaking armor (1-100): "<<std::endl;
         std::cin>>breaking_armor;
-        weapon_class_point = (damage + breaking_armor) / 2;
+        static_cast<double>(weapon_class_point = (damage + breaking_armor)) / 2;        //excaption
         if (weapon_class_point >= 0 && weapon_class_point <= 40){
             player_weapon_class = weapon_class = "Basic";
             std::cout<<"You're weapon have (" << weapon_class<<") level"<<std::endl;
@@ -82,7 +91,7 @@ void Player::weapons(){
         std::cin>>breaking_armor;
         std::cout<<"Enter throw range (1-100): "<<std::endl;
         std::cin>>throw_range;
-        weapon_class_point = (damage + breaking_armor + throw_range)/2.5;
+        static_cast<double>(weapon_class_point = (damage + breaking_armor + throw_range))/2.5;
         if (weapon_class_point >= 0 && weapon_class_point <= 40){
             player_weapon_class = weapon_class = "Basic";
             std::cout<<"You're weapon have (" << weapon_class<<") level"<<std::endl;
@@ -97,7 +106,7 @@ void Player::weapons(){
             std::cout<<"You're weapon have (" << weapon_class<<") level"<<std::endl;
         }
     } else if(new_weapon == "Bow"){
-        double range_of_flight;
+        int range_of_flight;
         int arrow_lethality;
         int arrow_damage;
         std::cout<<"Enter the characteristic: "<<std::endl;
@@ -107,7 +116,7 @@ void Player::weapons(){
         std::cin>>arrow_lethality;
         std::cout<<"Enter arrow damage (1-100): "<<std::endl;
         std::cin>>arrow_damage;
-        weapon_class_point = (range_of_flight + arrow_damage + arrow_lethality)/2.5;
+        static_cast<double>(weapon_class_point = (range_of_flight + arrow_damage + arrow_lethality))/2.5;
         if (weapon_class_point >= 0 && weapon_class_point <= 40){
             player_weapon_class = weapon_class = "Basic";
             std::cout<<"You're weapon have (" << weapon_class<<") level"<<std::endl;
@@ -135,17 +144,43 @@ bool Player::healtBool() {
     }
 }
 
-std::ostream &operator<<(std::ostream &os, const Player& obj){
-    obj.print(os);
-    return os;
+
+
+void Player::setName(){
+    std::string new_name;
+    std::cout<<"Enter name: "<<std::endl;
+    std::cin>>new_name;
+    try {
+        if (new_name < "") {
+            throw 0;
+            this-> name = new_name;                     // Exception
+        }
+    }catch (int &ex){
+        std::cerr<<"Name can't be empty"<<std::endl;
+        exit(1);
+    }
+}
+void Player::setStat() {
+    Player::setName();
+    Player::setHealth();
+    Player::setArmor();
 }
 
-void Player::setName(std::string new_name){
-    this->name = new_name;
-}
+void Player::setArmor() {
+    int new_armor;
+    std::cout<<"Enter Armor: "<<std::endl;
+    std::cin>>new_armor;
+    try {
+        if (new_armor < 0|| new_armor > 100) {
+            throw 0;
+            this->armor = new_armor;                     // Exception
+        }
+    }catch (int &ex){
+        std::cerr<<"Armor can't be < 0 and can't be > 100 "<<std::endl;
+        exit(1);
+    }
 
-void Player::setArmor(int new_armor) {
-    this->armor = new_armor;
+
 }
 
 void Player::display() const {
@@ -160,6 +195,12 @@ void Player::showStatHealthAndArmor() {
     std::cout<<"You're health: ["<<health<<"] "<<std::endl;
     std::cout<<"You're armor: ["<<armor<<"] "<<std::endl;
     std::cout<<std::endl;
+}
+void Player::print(std::ostream &os) const {
+    os<<"Interface for Player: "<<std::endl;
+    os<< "My name: "<<name<<std::endl<<"Health: "<<health<<std::endl
+       <<"Armor: "<<armor<<std::endl;
+    os<< std::endl;
 }
 
 

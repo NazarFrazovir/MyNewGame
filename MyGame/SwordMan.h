@@ -9,7 +9,7 @@
 #include "Spell.h"
 
 
-class SwordMan:public Player{
+class SwordMan final :public Player{
 private:
     std::string sword_Type[4]={"Basic", "Master", "Grandmaster", "Gven'nel"};
     int sword_damage;
@@ -25,19 +25,16 @@ public:
     //   and subsidiaries must have virtual destructor)
 
     void useSpell(const Spell& spell);
-    void setSwordDamage(int new_sword_damage);
-    void setPrecision(int new_precision);
-    void setMobility(int new_mobility);
-    void display() const override final;              //final (method) cannot be override.
+    void setSwordDamage();
+    void setPrecision();
+    void setMobility();
+    void display() const override final;              //final (method)
     void makeSound() override;              // pure virtual function
-    virtual void print(std::ostream& os) const override{
-        os << "I'm "<<name<< ", What's going on? "<< std::endl;
-        os << std::endl;
-    }
-    void representation(SwordMan& obj){
-        std::cout<<obj;
-    }
+    virtual void print(std::ostream& os) const override;
+    void createASwordMan();
+    void setStat() override;
+
+//    void representation(SwordMan& obj);
 
 };
-
 #endif //MYGAME_SWORDMAN_H

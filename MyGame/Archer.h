@@ -9,7 +9,7 @@
 #include "Player.h"
 #include "Spell.h"
 
-class Archer : public Player{
+class Archer final : public Player{
 private:
     std::string bowType[4] = {"Basic", "Middle", "Legendary","Bow of God"};
     int numberArrows;
@@ -26,20 +26,16 @@ public:
     //   and subsidiaries must have virtual destructor)
 
     void useSpell(const Spell& spell);
-    void setNumberArrows(int newNumbersArrows);
-    void setFlightRange(int newFlightRange);
-    void setDamageArrows(int newDamageArrows);
+    void setNumberArrows();
+    void setFlightRange();
+    void setDamageArrows();
      void display() const override ;
      void makeSound() override;
-     virtual void print(std::ostream& os) const override{
-         os << "I'm "<<name<< ", What's going on? "<< std::endl;
-         os << std::endl;
-     }
+     virtual void print(std::ostream& os) const override;
+     void setStat() override;
+    void createArcher();
 
-     void representation(Archer& obj){
-         std::cout<<obj;
-
-     }
+//     void representation(Archer& obj);
 
 
 };

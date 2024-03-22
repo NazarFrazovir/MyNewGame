@@ -5,11 +5,11 @@
 #ifndef MYGAME_PLAYER_H
 #define MYGAME_PLAYER_H
 #include <iostream>
+#include "Interface.h"
 
 
-
-class Player {
-    friend std::ostream &operator<<(std::ostream &os, const Player &obj);           // Interface
+class Player: public Interface{
+//    friend std::ostream &operator<<(std::ostream &os, const Player &obj);           // Interface
 protected:
     std::string name;
     int xp;
@@ -27,11 +27,13 @@ public:
     virtual ~Player(); // destructor
 
 
-    void setName(std::string new_name);
+    void setName();
 
-    void setArmor(int new_armor);
+    virtual  void  setStat();
 
-    void setHealth(int new_health);
+    void setArmor();
+
+    void setHealth();
 
     void attack();
 
@@ -45,12 +47,9 @@ public:
 
     virtual void makeSound()  = 0;                 //pure virtual function
 //
-    virtual void print(std::ostream& os)const  = 0;
+    virtual void print(std::ostream& os)const override;
 
-    void representation(Player& obj){
-        std::cout<<obj;
-    }
-
+//    void representation(Player& obj);
 
 
 private:
