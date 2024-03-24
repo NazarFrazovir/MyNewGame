@@ -7,7 +7,7 @@
 #include "Spell.h"
 
 SwordMan::SwordMan() :Player(){
-    sword_Type[0] = "Basic";
+    sword_Type = "Basic";
     sword_damage= 10 ;
     precision = 5;
     mobility = 5;
@@ -85,6 +85,7 @@ void SwordMan::display() const {
     std::cout<<"Sword damage : "<<sword_damage<<std::endl;
     std::cout<<"Precision: "<<precision<<std::endl;
     std::cout<<"Mobility: "<<mobility<<std::endl;
+    std::cout<<"Sword: "<<sword_Type<<std::endl;
     std::cout<<std::endl;
 }
 
@@ -107,3 +108,37 @@ void SwordMan::setStat() {
     setMobility();
     setPrecision();
 }
+
+void SwordMan::setWeapon() {
+    std::cout<<"Enter you're Sword: [Basic] [Master] [Grand Master] [Gven'nel]"<<std::endl;
+    std::string newSwordType;
+    getline(std::cin,newSwordType);
+    if (newSwordType == "Basic"){
+        std::cout<<"You're sword is {Basic} "<<std::endl;
+        precision = 20;
+        mobility = 30;
+        sword_damage = 20;
+        sword_Type = newSwordType;
+    } else if(newSwordType == "Master"){
+        std::cout<<"You're sword is {Master} "<<std::endl;
+        precision = 30;
+        mobility = 40;
+        sword_damage = 35;
+        sword_Type = newSwordType;
+    } else if(newSwordType == "Grand Master"){
+        std::cout<<"You're sword is {Grand Master} "<<std::endl;
+        precision = 40;
+        mobility = 60;
+        sword_damage = 45;
+        sword_Type = newSwordType;
+    } else if(newSwordType == "Gven'nel"){
+        std::cout<<"You're sword is {Gven'nel} "<<std::endl;
+        precision = 50;
+        mobility = 80;
+        sword_damage = 60;
+        sword_Type = newSwordType;
+    }else{
+        std::cout<<"Incorrect sword type entered "<<std::endl;
+    }
+}
+

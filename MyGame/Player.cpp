@@ -151,7 +151,7 @@ void Player::setName(){
     std::cout<<"Enter name: "<<std::endl;
     std::cin>>new_name;
     try {
-        if (new_name < "") {
+        if (new_name == "") {
             throw 0;
             this-> name = new_name;                     // Exception
         }

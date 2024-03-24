@@ -29,7 +29,7 @@ public:
 
     void setName();
 
-    virtual  void  setStat();
+    virtual  void  setStat() ;
 
     void setArmor();
 
@@ -48,6 +48,8 @@ public:
     virtual void makeSound()  = 0;                 //pure virtual function
 //
     virtual void print(std::ostream& os)const override;
+
+    virtual void setWeapon() = 0;
 
 //    void representation(Player& obj);
 

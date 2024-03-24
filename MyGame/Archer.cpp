@@ -8,7 +8,7 @@
 #include "Spell.h"
 
 Archer::Archer() :Player(){
-    bowType[0] = "Basic";
+    bowType = "Basic";
     damageArrows = 10;
     numberArrows = 10;
     flightRange =  20;
@@ -90,6 +90,7 @@ void Archer::display() const {
     std::cout<<"Arrow damage : "<<damageArrows<<std::endl;
     std::cout<<"Flight range: "<<flightRange<<std::endl;
     std::cout<<"Number of Arrows: "<<numberArrows<<std::endl;
+    std::cout<<"Bow type: "<<bowType<<std::endl;
     std::cout<<std::endl;
 }
 
@@ -110,5 +111,38 @@ void Archer::setStat(){
     setDamageArrows();
     setNumberArrows();
     setFlightRange();
+}
+
+void Archer::setWeapon() {
+    std::cout<<"Enter you're bow: [Basic] [Master] [Grand Master] [Bow of Good]"<<std::endl;
+    std::string newBowType;
+    getline(std::cin,newBowType);
+    if (newBowType == "Basic"){
+        std::cout<<"You're bow is {Basic} "<<std::endl;
+        numberArrows = 20;
+        flightRange = 30;
+        damageArrows = 20;
+        bowType = newBowType;
+    } else if(newBowType == "Master"){
+        std::cout<<"You're bow is {Master} "<<std::endl;
+        numberArrows = 20;
+        flightRange = 40;
+        damageArrows = 30;
+        bowType = newBowType;
+    } else if(newBowType == "Grand Master"){
+        std::cout<<"You're bow is {Grand Master} "<<std::endl;
+        numberArrows = 20;
+        flightRange = 60;
+        damageArrows = 40;
+        bowType = newBowType;
+    } else if(newBowType == "Bow of Good"){
+        std::cout<<"You're bow is {Bow of Good} "<<std::endl;
+        numberArrows = 30;
+        flightRange = 80;
+        damageArrows = 50;
+        bowType = newBowType;
+    }else{
+        std::cout<<"Incorrect bow type entered "<<std::endl;
+    }
 }
 

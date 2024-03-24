@@ -11,7 +11,7 @@
 
 class SwordMan final :public Player{
 private:
-    std::string sword_Type[4]={"Basic", "Master", "Grandmaster", "Gven'nel"};
+    std::string sword_Type;
     int sword_damage;
     int precision;
     int mobility;
@@ -33,6 +33,7 @@ public:
     virtual void print(std::ostream& os) const override;
     void createASwordMan();
     void setStat() override;
+    void setWeapon() override;
 
 //    void representation(SwordMan& obj);
 
