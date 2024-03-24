@@ -8,26 +8,36 @@
 #include "Archer.h"
 
 
-User::User()
-:name("None"),password(0),isAdmin(0){}
-User::User(std::string name, int password)
-:name(name),password(password),isAdmin(0){}
+//User::User()
+//:name("None"),password(0),isAdmin(0){}
+User::User(std::string name, int password,bool isAdmin)
+:name(name),password(password),isAdmin(isAdmin){}
 User::~User(){}
 
 bool User::auditIfAdmin() {
     int newPassword;
-    if (newPassword = password){
-        isAdmin = true;
-        return true;
-    } else{
-        isAdmin = false;
+    password = 1234;
+    int choice;
+    std::cout<<"Hello, You're are admin? (1) - Yes.    (2) - No "<<std::endl;
+    std::cin>>choice;
+    if (choice == 1){
+        std::cout<<"Enter password: "<<std::endl;
+        std::cin>>newPassword;
+        if (newPassword == password){
+            return true;
+        } else{
+            return false;
+        }
+    }else if (choice == 2){
         return false;
+    }else{
+        std::cout<<"You entered incorrect number "<<std::endl;
     }
 }
 
 
 
- void User::createACharacter(SwordMan& swordMan, Archer& archer) {
+ void User::createACharacter(Player& player,Player& player2) {
     std::cout<<" Create a character: "<<std::endl;
     std::cout<<std::endl;
     int change;
@@ -38,10 +48,10 @@ bool User::auditIfAdmin() {
     std::cin>>change;
     switch (change) {
         case 1:
-            swordMan.setStat();
+            player.setStat();
             break;
         case 2:
-            archer.setStat();
+            player2.setStat();
             break;
         default:
             std::cout<<"Enough type of character "<<std::endl;
@@ -49,6 +59,16 @@ bool User::auditIfAdmin() {
     }
 }
 
+void User::Inventory(const std::vector<std::string>& item) {
+    if (item.empty()){
+        std::cout<<"You're inventory is empty. "<<std::endl;
+    }else{
+        std::cout<<"Inventory: "<<std::endl;
+        for(const std::string& items : item) {
+            std::cout<<"-["<<items<<"]"<<std::endl;
+        }
+    }
+}
 
 //void User::console() {
 //    std::cout<<"            Console game:           "<<std::endl;

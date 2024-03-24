@@ -19,12 +19,12 @@ private:
 public:
 
     User();
-    User(std::string name,int password);
+    User(std::string name,int password, bool isAdmin);
     ~User();
 
 //    virtual void console() override;
     bool auditIfAdmin();
-
-     void createACharacter(SwordMan& swordMan, Archer& archer);
+     void createACharacter(Player& player,Player& player2);
+    static void Inventory(const std::vector<std::string>& item);
 };
 #endif //MYGAME_USER_H
