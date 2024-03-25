@@ -1,12 +1,14 @@
 #include <iostream>
-#include "Player.h"
+#include "Character/Player.h"
 #include "Enemy.h"
 #include "Game.h"
-#include "SwordMan.h"
-#include "Spell.h"
-#include "Archer.h"
+#include "Character/SwordMan.h"
+#include "Item/Spell.h"
+#include "Character/Archer.h"
 #include "EnemySwordMan.h"
 #include "User.h"
+
+#include "Item/Inventory.h"
 
 
  void onShowStatHealthAndArmor(Player& player){
@@ -34,90 +36,105 @@ bool isAdmin(User& user){
 void Console(User& user) {
     if (isAdmin(user)){
         std::cout<<"              Admin Console:           "<<std::endl;
-        std::cout<<"(1) Create a character "<<std::endl;
+        std::cout<<"(1) Add user "<<std::endl;
         std::cout<<"(2) Delete character"<<std::endl;
         std::cout<<"(3) Create enemy"<<std::endl;
         std::cout<<"(4) Show all character"<<std::endl;
         std::cout<<"(5) Exit Menu "<<std::endl;
         std::cout<<std::endl;
         int k;
-        switch (k) {
-            case 1:
+        do{
+            std::cout<<"Select menu item: "<<std::endl;
+            std::cin>>k;
+            switch (k) {
+                case 1:
 
-                break;
-            case 2:
+                    break;
+                case 2:
 
-                break;
+                    break;
 
-            case 3:
+                case 3:
 
-                break;
+                    break;
 
-            case 4:
+                case 4:
 
-                break;
-            case 5:
+                    break;
+                case 5:
 
-                break;
+                    break;
 
-            default:
-                std::cout<<"You entered non availed item. BYE "<<std::endl;
-                exit(1);
-                break;
+                default:
+                    std::cout<<"You entered non availed item. BYE "<<std::endl;
+                    exit(1);
+                    break;
 
-        }
-    }else{
-        std::cout<<"            Console game:           "<<std::endl;
-        std::cout<<"(1) Create a character "<<std::endl;
-        std::cout<<"(2) Open inventory "<<std::endl;
-        std::cout<<"(3) Fight "<<std::endl;
-        std::cout<<"(4) Display "<<std::endl;
-        std::cout<<"(5) Exit game "<<std::endl;
-        std::cout<<std::endl;
+            }
+        }while(k!=5);
+
+    }else {
+        std::cout << "            Console game:           " << std::endl;
+        std::cout << "(1) Create a character " << std::endl;
+        std::cout << "(2) Open inventory " << std::endl;
+        std::cout << "(3) Display " << std::endl;
+        std::cout << "(4) Exit game " << std::endl;
+        std::cout << std::endl;
 
         int k;
-        std::cout<<"Select menu item: "<<std::endl;
-        std::cin>>k;
+        Player &player = reinterpret_cast<Player &>(user);      // оператор Переведення для вказівників, для найбільш небезпечного переведення
         SwordMan sw;
         Archer ar;
 
-        Player& player = reinterpret_cast<Player &>(user);      // оператор Переведення для вказівників, для найбільш небезпечного переведення
-        switch (k) {
-            case 1:
-                user.createACharacter(sw,ar);
-                break;
-            case 2:
+        do {
+            std::cout << "Select menu item: " << std::endl;
+            std::cin >> k;
+            switch (k) {
+                case 1:
+                    user.createACharacter(sw, ar);
+                    break;
+                case 2:
 
-                break;
+                    break;
 
-            case 3:
+                case 3:
 
-                break;
+                    break;
 
-            case 4:
-                displayInfoOnUI(player);
-                break;
-            case 5:
+                case 4:
+                    displayInfoOnUI(player);
+                    break;
+                case 5:
 
-                break;
+                    break;
 
-            default:
-                std::cout<<"You entered non availed item. BYE "<<std::endl;
-                exit(1);
-                break;
+                default:
+                    std::cout << "You entered non availed item. BYE " << std::endl;
+                    exit(1);
+                    break;
 
-        }
+            }
+
+        } while (k != 4);
+
 
     }
-    }
+
+}
 
 
 int main() {
 
 
-    SwordMan sw1;
-    Player& player1 = sw1;
-    Console((User&)player1);
+//    SwordMan sw1;
+//    Player& player1 = sw1;
+//    Console((User&)player1);
+
+Inventory in1;
+
+    in1.inventoryForAdmin();
+
+//in1.inventoryForUser();
 
     return 0;
 };
