@@ -3,10 +3,10 @@
 //
 #include <iostream>
 #include "User.h"
-#include "Character/Player.h"
-#include "Character/SwordMan.h"
-#include "Character/Archer.h"
-
+#include "Player.h"
+#include "SwordMan.h"
+#include "Archer.h"
+#include "Character.h"
 
 User::User()
 :name("None"){}
@@ -14,7 +14,9 @@ User::User()
 //:name(name),password(password),isAdmin(isAdmin){}
 User::User(const std::string &name)
 :name(name){}
-User::User(User *userptr) {}
+User::User(std::string,int,int) {}
+User::User(std::unique_ptr<User> uniqueCharacter) {}
+//User::User(User *userptr) {}
 User::~User(){}
 
 bool User::auditIfAdmin() {
@@ -71,13 +73,13 @@ void User::createUser() {
 
 void User::saveAllUsersToFile() {
     std::string filename = "User.txt";
-    std::ofstream file(filename,std::ios_base::trunc); //відкриття файлу у режимі запису
+    std::ofstream file(filename,std::ios_base::app); //відкриття файлу у режимі запису
 
     if (!file.is_open()) {
         std::cerr << "Failed to open file for writing: " << filename << std::endl;
         return;
     }
-    file << "All users:\n";
+
     for (const auto& user : users) {
         file << "Username: " <<user->name<< std::endl;
     }
@@ -131,56 +133,38 @@ void User::removeUserByName() {
 }
 
 void User::createCharacter() {
-//    std::string characterName;
-//    int characterType;
-//
-//    std::cout << "Enter character name: ";
-//    std::cin >> characterName;
-//
-//    std::cout << "Choose character type:" << std::endl;
-//    std::cout << "1. SwordMan" << std::endl;
-//    std::cout << "2. Archer" << std::endl;
-//    std::cin >> characterType;
-//
-//    User* newCharacter = nullptr;
-//    switch (characterType) {
-//        case 1:
-////            newCharacter = reinterpret_cast<User *>(new SwordMan(characterName));// оператор Переведення для вказівників, для найбільш небезпечного переведення
-//             characters.push_back(std::make_unique<SwordMan>(characterName));
-//            break;
-//        case 2:
-////            newCharacter = reinterpret_cast<User *>(new Archer(characterName));// оператор Переведення для вказівників, для найбільш небезпечного переведення
-//            characters.push_back(std::make_unique<Archer>(characterName));
-//            break;
-//        default:
-//            std::cerr << "Invalid character type. Character creation failed." << std::endl;
-//            return;
-//    }
-//
-////    characters.push_back(std::make_unique<User>(newCharacter));
-//    std::cout << "Character " << characterName << " created successfully." << std::endl;
-    std::unique_ptr<User> character = std::make_unique<User>();
+    std::unique_ptr<Character> character = std::make_unique<Character>();
     std::cout << "Enter name: "<<std::endl;
-    std::cin >> character->name;
+    std::cin >> character->charName;
     std::cout << "Enter health: "<<std::endl;
-    std::cin >> character->health;
+    std::cin >> character->charHealth;
     std::cout << "Enter armor: "<<std::endl;
-    std::cin >> character->armor;
-    users.push_back(std::move(character));      // Список користувачів.
+    std::cin >> character->charArmor;
+    characters.push_back(std::move(character)); // Додавання персонажа до вектора characters
 }
+
 
 void User::saveCharacter(){
     std::string filename = "Character.txt";
-    std::ofstream file(filename,std::ios_base::trunc); //відкриття файлу у режимі запису
+    std::ofstream file(filename,std::ios_base::app); //відкриття файлу у режимі запису
 
     if (!file.is_open()) {
         std::cerr << "Failed to open file for writing: " << filename << std::endl;
         return;
     }
-    file << "All users:\n";
+
     for (const auto& character : characters) {
-        file << "Name: " <<character->name <<"Health: "<<character->health <<"Armor: "<<character->armor<<  std::endl;
+        file << "Name: " << character->charName << "Health: " << character->charHealth << " Armor: " << character->charArmor
+             << std::endl;
     }
+    if (characters.empty()){
+        std::cout<<"File is empty "<<std::endl;
+        file.close();
+        return;
+    }
+    if(file.fail()){
+        std::cerr<<"Error writing in file"<<std::endl;
+    }else{std::cout<<"Character added successfully"<<std::endl;}
     file.close();
 }
 void User::loadCharacter() {
