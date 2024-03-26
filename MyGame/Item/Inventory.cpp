@@ -6,32 +6,44 @@
 #include <fstream>
 #include <memory>
 
+Inventory::Inventory() {}
+
 void Inventory::addItems() {
-    std::unique_ptr<Object> item = std::make_unique<Object>();
-//Object* item = new Object();
+    std::unique_ptr<Object> item = std::make_unique<Object>(); // make_unique створює обʼєкт, яка створює вказівник
     std::cout<<"        Add item in Inventory: "<<std::endl;
+
     std::cout<<"Item name: "<<std::endl;
     std::cin>>item->name;
+
     std::cout<<"Item weight: "<<std::endl;
-    std::cin>>item->weight;
-    std::string itemName = item->name;
+    std::string weightInput;
+    std::cin>>weightInput;
+
+/*    std::string itemName = item->name;
     int itemWeight = item->weight;
     items.push_back(std::move(item));  // Отримання вказівника з unique_ptr
     history.push_back(InventoryHistory("Added: ", itemName + " "+ "Weight: "
     + std::to_string(itemWeight))); //to_string
-    // перетворює числа, або інші типи данних в рядок.
     saveInventoryToFile();
+    перетворює числа, або інші типи данних в рядок.
+*/          // Старий код
 
+    try{
+    item->weight = std::stoi(weightInput);  // stoi перетворює рядок в ціле число
+} catch (const std::invalid_argument& e) {  // Передача аргумента з неправельним значенням в метод, наприклад: ви очікуєте
+    std::cerr<<"Invalid input for weight"<<std::endl; // передачу в число а передаєте рядок, тоді буде виключення
+    return;
+} catch (const std::out_of_range& e) {          // Значення виходять за допустимі межі.
+    std::cerr<<"Weight value is out of range."<<std::endl;
+    return;
 }
-void Inventory::removeItems() {
-    int index;
-    std::cout<<"Enter item who needs to remove: "<<std::endl;
-    std::cin>>index;
-    if (index >= 0 && index < items.size()) {
-        items.erase(items.begin() + index);  // erase - видалення індекса з вектора
-        history.push_back(InventoryHistory("Removed", ""));
-        saveInventoryToFile();
-    }
+std::string itemName = item -> name;
+int itemWeight = item ->weight;
+
+items.push_back(std::move(item));  // Додавання вказівника з unique_ptr
+history.push_back(InventoryHistory("Added: ", itemName + " "+ "Weight: "
+    + std::to_string(itemWeight)));     // to_string перетворює числа,або інші типи даних в рядок
+
 }
 void Inventory::displayItems() {
     std::cout<<"Inventory: "<<std::endl;
@@ -49,42 +61,70 @@ void Inventory::displayHistory() {
 
 void Inventory::saveInventoryToFile() {
     std::string filename = "Inventory.txt";
-//    std::cout<<"Enter file name: "<<std::endl;
-//    std::cin>>filename;
-    std::ofstream file(filename);
-    if (file.is_open()){
-        for(auto& item:items){
-           file<<"Name: "<<item->name<<" Weight: "<<item->weight<<std::endl;
+    std::ofstream file(filename,std::ios_base::trunc); //відкриття файлу у режимі запису
+/*    if (file.is_open()){
+//        for(const auto& item:items){
+//           file<<"Name: "<<item->name<<" Weight: "<<item->weight<<std::endl;
+//        }
+//        file.close();
+//    }else{
+//        std::cerr<<"File not open "<<std::endl;
+//    }
+ historyInventorySaveToFile();
+*/    // Старий код
+
+    if (!file.is_open()){
+        std::cerr<<"File not open"<<std::endl;
+    }else{
+        for(const auto& item: items){
+            file<<"Name: "<<item->name<<" Weight: "<<item->weight<<std::endl;
         }
         file.close();
-        std::cout<<"Inventory saved to file "<<std::endl;
+    }
+//    historyInventorySaveToFile();
+}
+
+void Inventory::historyInventorySaveToFile() {
+    std::string filename = "History.txt";
+    std::ofstream file(filename, std::ios_base::trunc);//відкриття файлу у режимі запису
+
+    if (file.is_open()){
+        for(const auto& change:history){
+            file<<"Action: "<<change.action<<" "<<"Details: "<<change.itemDetails<<" "<<std::endl;
+            file<<"Timestamp: "<<std::ctime(&change.changeTime);
+        }
+        file.close();
     }else{
         std::cerr<<"File not to open "<<std::endl;
     }
 }
 
-void Inventory::loadInventoryFromFile() {
-    std::string filename = "Inventory.txt";
-//    std::cout<<"Enter file name: "<<std::endl;
-//    std::cin>>filename;
-    std::ifstream file(filename);
-    if (file.is_open()){
-        items.clear();
-        std::string itemName;
-        int itemWeight;
-        while(file >> itemName >> itemWeight){  // Виводимо з файлу
-        std::unique_ptr<Object> newItem = std::make_unique<Object>(itemName,itemWeight);
-            items.push_back(std::move(newItem));   // додаємо до кінця
-        }
-        file.close();
-        std::cout<<"Inventory load from file "<<std::endl;
-    }else{
-        std::cerr<<"File not to open "<<std::endl;
+void Inventory::historyInventoryLoadFromFile() {
+    std::string filename = "History.txt";
+    std::ifstream file(filename,std::ios_base::in); // ios_base::in файл відкритий тільки для читання.
+
+    if(!file.is_open()){
+        std::cerr<<"File not open "<<std::endl;
+    }
+    char symbol;
+    while (file.get(symbol)){
+        std::cout<<symbol;
     }
 }
-Inventory::~Inventory() {
-    items.clear();
+
+void Inventory::loadInventoryFromFile() {
+    std::string filename = "Inventory.txt";
+    std::ifstream file(filename,std::ios_base::in); // ios_base::in файл відкритий тільки для читання
+
+    if(!file.is_open()){
+        std::cerr<<"File not open "<<std::endl;
+    }
+    char symbol;
+    while (file.get(symbol)){
+        std::cout<<symbol;
+    }
 }
+Inventory::~Inventory() {}
 
 void Inventory::inventoryForAdmin(){
     std::cout<<"                Inventory for Admin       "<<std::endl;
@@ -92,8 +132,8 @@ void Inventory::inventoryForAdmin(){
     std::cout<<"(2) Remove items for inventory "<<std::endl;
     std::cout<<"(3) Save inventory to file "<<std::endl;
     std::cout<<"(4) Load inventory From file "<<std::endl;
-    std::cout<<"(5) Display inventory for admin "<<std::endl;
-    std::cout<<"(6) Just display inventory"<<std::endl;
+    std::cout<<"(5) Display(history) inventory for admin "<<std::endl;
+    std::cout<<"(6) Save history of inventory "<<std::endl;
     std::cout<<"(7) Exit "<<std::endl;
 
     int change;
@@ -102,10 +142,10 @@ void Inventory::inventoryForAdmin(){
         switch (change) {
             case 1:
                 addItems();
-                std::cout<<"Items add in inventory "<<std::endl;
+                std::cout<<"Item add in inventory "<<std::endl;
                 break;
             case 2:
-                removeItems();
+                removeItemByName();
                 break;
             case 3:
                 saveInventoryToFile();
@@ -114,14 +154,14 @@ void Inventory::inventoryForAdmin(){
                 loadInventoryFromFile();
                 break;
             case 5:
-                displayHistory();
+                historyInventoryLoadFromFile();
                 break;
             case 6:
-                displayItems();
+                historyInventorySaveToFile();
                 break;
             case 7:
                 std::cout<<"        BYE     "<<std::endl;
-                exit(1);
+                exit(0);
             default:
                 std::cerr<<"Incorrect number. "<<std::endl;
                 break;
@@ -133,33 +173,26 @@ void Inventory::inventoryForUser(){
     std::cout<<"                Inventory for User       "<<std::endl;
     std::cout<<"(1) Show Inventory "<<std::endl;
     std::cout<<"(2) Remove items for inventory "<<std::endl;
-    std::cout<<"(3) Sort by name Inventory "<<std::endl;
-    std::cout<<"(4) Sort by weight Inventory"<<std::endl;
-    std::cout<<"(5) Exit "<<std::endl;
+    std::cout<<"(3) Exit "<<std::endl;
     int change;
     do{
         std::cin>>change;
         switch (change) {
             case 1:
-                displayItems();
+                loadInventoryFromFile();
                 break;
             case 2:
-                removeItems();
+                removeItemByName();
                 break;
             case 3:
-                sortInventoryByName();
-                break;
-            case 4:
-                sortInventoryByWeight();
-                break;
-            case 5:
                 std::cout<<"        BYE     "<<std::endl;
                 exit(1);
             default:
                 std::cerr<<"Incorrect number. "<<std::endl;
-                break;
+                exit(1);
+
         }
-    }while(change != 5);
+    }while(change != 3);
 
 }
 
@@ -170,7 +203,7 @@ return a->name < b->name;
 void Inventory::sortInventoryByName() {
     std::sort(items.begin(),items.end(), compareItemsByName);
     std::cout<<"        Sort Inventory(by name) "<<std::endl;
-    displayItems();
+    saveInventoryToFile();
 }
 
 bool Inventory::compareItemsByWeight(const std::unique_ptr<Object> &a, const std::unique_ptr<Object> &b) {
@@ -178,8 +211,46 @@ bool Inventory::compareItemsByWeight(const std::unique_ptr<Object> &a, const std
 }
 
 void Inventory::sortInventoryByWeight() {
-    std::sort(items.begin(),items.end(), compareItemsByWeight);
-    std::cout<<"        Sort Inventory(by weight) "<<std::endl;
-    displayItems();
+    std::sort(items.begin(), items.end(), compareItemsByWeight);
+    std::cout << "        Sort Inventory(by weight) " << std::endl;
+    saveInventoryToFile();
 }
+
+void Inventory::removeItemByName() {
+    std::string itemName;
+    std::cout<<"Enter name of the item to remove "<<std::endl;
+    std::cin>>itemName;
+
+    std::string filename = "Inventory.txt";
+    std::ifstream file(filename);
+
+    if (!file.is_open()){
+        std::cerr<<"File not open"<<std::endl;
+        return;
+    }
+    std::string line;
+    std::vector<std::string> fileContent;
+
+    while (std::getline(file,line)){
+        if (line.find(itemName) == std::string::npos){      //  Якщо імʼя співпадає то значить
+            fileContent.push_back(line);      // що імʼя не співпало , додаємо рядок до вектора
+              // npos - значення класу стрінг,найбільше можливе значення size_t
+        }
+    }
+    file.close();
+
+    std::ofstream outFile(filename);            //Перезаписуєм файл
+    for(auto& content:fileContent){
+        outFile<<content<<std::endl;
+    }
+    outFile.close();
+
+    std::cout << "Item [" << itemName << "] removed from inventory." << std::endl;
+
+    historyInventorySaveToFile();
+}
+
+
+
+
 

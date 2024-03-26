@@ -7,4 +7,5 @@
 Object::Object(std::string name, int weight)
 :name(name),weight(weight){}
 
-Object::Object() {}
+Object::Object()
+:name(""),weight(0){}

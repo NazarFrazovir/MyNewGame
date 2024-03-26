@@ -19,13 +19,15 @@ class Inventory{
 private:
     std::vector<std::unique_ptr<Object>> items;
     std::vector<InventoryHistory> history;
-public:
-    ~Inventory();
-    void addItems();
-    void removeItems();
-    void displayItems();
+    void historyInventorySaveToFile();
+    void historyInventoryLoadFromFile();
     void saveInventoryToFile();
     void loadInventoryFromFile();
+public:
+    Inventory();
+    ~Inventory();
+    void addItems();
+    void displayItems();
     void inventoryForAdmin();
     void displayHistory();
     void inventoryForUser();
@@ -33,6 +35,9 @@ public:
     static bool compareItemsByName(const std::unique_ptr<Object>& a, const std::unique_ptr<Object>& b);
     static bool compareItemsByWeight(const std::unique_ptr<Object>&a, const std::unique_ptr<Object>& b);
     void sortInventoryByWeight();
+    void removeItemByName();
+
+
 
 
 };

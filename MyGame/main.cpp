@@ -14,7 +14,7 @@
  void onShowStatHealthAndArmor(Player& player){
     player.showStatHealthAndArmor();
 }                                         // Base class reference
-void displayInfoOnUI(const Player& player)  {
+void displayInfoOnUI(Player& player)  {
     std::cout<<"---------------------------------------------"<<std::endl;
     player.display();
     std::cout<<"---------------------------------------------"<<std::endl;
@@ -33,106 +33,104 @@ bool isAdmin(User& user){
     }
 }
 
-void Console(User& user) {
-    if (isAdmin(user)){
-        std::cout<<"              Admin Console:           "<<std::endl;
-        std::cout<<"(1) Add user "<<std::endl;
-        std::cout<<"(2) Delete character"<<std::endl;
-        std::cout<<"(3) Create enemy"<<std::endl;
-        std::cout<<"(4) Show all character"<<std::endl;
-        std::cout<<"(5) Exit Menu "<<std::endl;
-        std::cout<<std::endl;
-        int k;
-        do{
-            std::cout<<"Select menu item: "<<std::endl;
-            std::cin>>k;
-            switch (k) {
-                case 1:
+void adminConsole(User& user){
+    std::cout<<"              Admin Console:           "<<std::endl;
+    std::cout<<"(1) Add user "<<std::endl;
+    std::cout<<"(2) Delete user"<<std::endl;
+    std::cout<<"(3) Setting Inventory "<<std::endl;
+    std::cout<<"(4) Save User in File "<<std::endl;
+    std::cout<<"(5) Show Users "<<std::endl;
+    std::cout<<"(6) Exit Menu "<<std::endl;
+    std::cout<<std::endl;
+    int k;
+    do{
+        std::cout<<"Select menu item: "<<std::endl;
+        std::cin>>k;
+        switch (k) {
+            case 1:
+                user.createUser();
+                break;
+            case 2:
+                user.removeUserByName();
+                break;
 
-                    break;
-                case 2:
+            case 3:
+                user.inventoryForAdmin();
+                break;
 
-                    break;
-
-                case 3:
-
-                    break;
-
-                case 4:
-
-                    break;
-                case 5:
-
-                    break;
-
-                default:
-                    std::cout<<"You entered non availed item. BYE "<<std::endl;
-                    exit(1);
-                    break;
-
-            }
-        }while(k!=5);
-
-    }else {
-        std::cout << "            Console game:           " << std::endl;
-        std::cout << "(1) Create a character " << std::endl;
-        std::cout << "(2) Open inventory " << std::endl;
-        std::cout << "(3) Display " << std::endl;
-        std::cout << "(4) Exit game " << std::endl;
-        std::cout << std::endl;
-
-        int k;
-        Player &player = reinterpret_cast<Player &>(user);      // оператор Переведення для вказівників, для найбільш небезпечного переведення
-        SwordMan sw;
-        Archer ar;
-
-        do {
-            std::cout << "Select menu item: " << std::endl;
-            std::cin >> k;
-            switch (k) {
-                case 1:
-                    user.createACharacter(sw, ar);
-                    break;
-                case 2:
-
-                    break;
-
-                case 3:
-
-                    break;
-
-                case 4:
-                    displayInfoOnUI(player);
-                    break;
-                case 5:
-
-                    break;
-
-                default:
-                    std::cout << "You entered non availed item. BYE " << std::endl;
-                    exit(1);
-                    break;
-
-            }
-
-        } while (k != 4);
-
-
-    }
-
+            case 4:
+                user.saveAllUsersToFile();
+                break;
+            case 5:
+                user.loadUserFromFile();
+                break;
+            case 6:
+                std::cout<<"        BYE         "<<std::endl;
+                break;
+            default:
+                std::cerr<<"You entered non availed item. BYE "<<std::endl;
+                break;
+        }
+    }while(k!=6);
 }
 
+void userConsole(User& user){
+    std::cout << "            Console game:           " << std::endl;
+    std::cout << "(1) Create a character " << std::endl;
+    std::cout << "(2) Open inventory " << std::endl;
+    std::cout << "(3) Save character " << std::endl;
+    std::cout << "(4) Load character " << std::endl;
+    std::cout << "(5) Exit game " << std::endl;
+    std::cout << std::endl;
 
+    int k;
+
+
+    do {
+        std::cout << "Select menu item: " << std::endl;
+        std::cin >> k;
+        switch (k) {
+            case 1:
+                user.createCharacter();
+                break;
+            case 2:
+                user.inventoryForUser();
+                break;
+
+            case 3:
+                user.saveCharacter();
+                break;
+            case 4:
+                user.loadCharacter();
+                break;
+            case 5:
+                std::cout<<"            BYE             "<<std::endl;
+                exit(1);
+            default:
+                std::cerr << "You entered non availed item. BYE " << std::endl;
+                exit(1);
+
+        }
+
+    } while (k != 5);
+}
+
+void Console(User& user) {
+    if (isAdmin(user)){
+        adminConsole(user);
+    }else {
+        userConsole(user);
+    }
+}
 int main() {
 
 
-//    SwordMan sw1;
-//    Player& player1 = sw1;
-//    Console((User&)player1);
+    User user1;
+    Console(user1);
 
-Inventory in1;
-
-    in1.inventoryForAdmin();
+//Inventory in1;
+//
+//    in1.inventoryForAdmin();
 
 //in1.inventoryForUser();
 
